@@ -35,13 +35,15 @@ enum AgentStatus {
 }
 
 model Agent {
-  id         String      @id @default(cuid())
-  orgId      String
-  providerId String
-  name       String
-  role       String?
-  status     AgentStatus @default(idle)
-  createdAt  DateTime    @default(now())
+  id             String      @id @default(cuid())
+  orgId          String
+  providerId     String
+  name           String
+  role           String?
+  status         AgentStatus @default(idle)
+  isOrchestrator Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   organization Organization @relation(fields: [orgId], references: [id])
   provider     Provider     @relation(fields: [providerId], references: [id])

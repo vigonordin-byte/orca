@@ -29,7 +29,20 @@ async function main() {
     },
   });
 
-  console.log({ org, provider: claude, agent });
+  const orchestrator = await prisma.agent.upsert({
+    where: { id: "agent-orchestrator" },
+    update: {},
+    create: {
+      id: "agent-orchestrator",
+      orgId: org.id,
+      providerId: claude.id,
+      name: "Orchestrator",
+      role: "You route requests to the right specialist agent.",
+      isOrchestrator: true,
+    },
+  });
+
+  console.log({ org, provider: claude, agent, orchestrator });
 }
 
 main()
